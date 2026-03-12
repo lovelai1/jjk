@@ -1,0 +1,193 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:entity": {
+    "description": {
+      "scripts": {
+        "animate": [
+          "health"
+        ]
+      },
+      "animations": {
+        "health": "controller.animation.health"
+      },
+      "properties": {
+        "property:rift_prison": {
+          "type": "int",
+          "range": [0, 1],
+          "default": 1,
+          "client_sync": true
+        }
+      },
+      "identifier": "ds:rift_prison",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "ds:disappear": {
+        "minecraft:transformation": {
+          "into": "ds:disappear",
+          "delay": 0.0
+        }
+      },
+      "minecraft:rift_prison_components": {
+        "minecraft:look_at": {
+          "priority": 0,
+          "entity_types": ["player"],
+          "stop_when_behind": true
+        },
+        "minecraft:behavior.controlled_by_player": {
+          "speed_multiplier": 1.0
+        },
+        "minecraft:behavior.ranged_attack": {
+          "attack_groups": ["rift_prison_projectile"]
+        }
+      }
+    },
+    "components": {
+      "minecraft:nameable": {},
+      "minecraft:type_family": {
+        "family": ["villain", "rift_prison", "non_sorcerer", "heroic"]
+      },
+      "minecraft:collision_box": {
+        "width": 1,
+        "height": 1
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "is_amphibious": false,
+        "can_pass_doors": false,
+        "can_walk": false,
+        "can_break_doors": false
+      },
+      "minecraft:annotation.break_door": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:health": {
+        "value": 1000,
+        "max": 1000,
+        "min": 1
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_air": true,
+        "breathes_water": true
+      },
+      "minecraft:attack": {
+        "damage": 1
+      },
+      "minecraft:movement": {
+        "value": 0
+      },
+      "minecraft:scale": {
+        "value": 1.5
+      },
+      "minecraft:knockback_resistance": {
+        "value": 4
+      },
+      "minecraft:boss": {
+        "hud_range": 48,
+        "name": "§l§r§0-= §k§0§l-= §r§o§l Rift Confinement System §l§k§0=- §l§r§0 =-"
+      },
+      "minecraft:on_death": {
+        "event": "rift_prison_die"
+      },
+      "minecraft:timer": {
+        "looping": true,
+        "time": 0,
+        "time_down_event": {
+          "event": "rift_prison"
+        }
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/sus"
+      },
+      "minecraft:environment_sensor": {
+        "triggers": {
+          "filters": {
+            "test": "is_underwater",
+            "operator": "==",
+            "value": true
+          },
+          "event": "minecraft:start_transforming"
+        }
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 11,
+        "reselect_targets": true,
+        "must_see": false,
+        "within_radius": 64,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                }
+              ]
+            },
+            "max_dist": 64
+          }
+        ]
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:physics": {
+        "has_gravity": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      }
+    },
+    "events": {
+      "rift_prison_lament": {
+        "set_property": {
+          "property:rift_prison": 1
+        }
+      },
+      "rift_prison_die": {
+        "queue_command": {
+          "command": [
+            "function mobs/rift_prison_death"
+          ]
+        }
+      },
+      "rift_prison": {
+        "queue_command": {
+          "command": [
+            "execute if entity @p[r=200] run function bosses/file/rift_prison"
+          ]
+        }
+      },
+      "ds:disappear": {
+        "add": {
+          "component_groups": [
+            "ds:disappear"
+          ]
+        }
+      }
+    }
+  }
+}

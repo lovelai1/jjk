@@ -1,0 +1,26 @@
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 dirt [] replace grass
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 fire [] replace double_plant
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 fire [] replace tallgrass
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 fire [] replace red_flower
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 fire [] replace yellow_flower
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace birch_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace spruce_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace acacia_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace mangrove_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace jungle_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace dark_oak_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 basalt [] replace cherry_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 smooth_basalt [] replace planks
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_oak_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_birch_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_spruce_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_acacia_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_mangrove_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_jungle_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_dark_oak_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 polished_basalt [] replace stripped_cherry_log
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 air [] replace leaves
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 air [] replace leaves2
+fill ~8 ~8 ~8 ~-8 ~-8 ~-8 air [] replace azalea_leaves
+

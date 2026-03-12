@@ -1,0 +1,34 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "§l§5Jujutsu Awakening §7| §bCursed Speech + §eSurvival v1.7 §7| §rAddon BP",
+        "description": "Enable BetaAPIs! | §4Made by Heroic Productions | ENABLE BETA APIS EXPERIMENTAL",
+        "uuid": "ad8089ef-0435-4d2f-84a0-a4fe9114560a",
+        "version": [0, 1, 0],
+        "min_engine_version": [1, 20, 30]
+    },
+    "modules": [
+        {
+            "type": "data",
+            "uuid": "a25ffd21-e5a0-4f37-99e8-a5199c72ccae",
+            "version": [1, 0, 0]
+        },
+        {
+            "type": "script",
+            "language": "javascript",
+            "uuid": "64a76312-4f98-4a42-80a6-2927cd297ca9",
+            "version": [0, 1, 0],
+            "entry": "index.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.17.0"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "1.3.0"
+        }
+    ]
+}

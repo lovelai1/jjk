@@ -1,0 +1,4 @@
+summon ds:higuruma ~5~~
+spreadplayers ~ ~ 35 45 @e[type=ds:higuruma,c=1]
+scoreboard players set @e[type=ds:higuruma,c=1] Deleter 8000
+playsound random.explode @a ~~~ 9999 0.25 9999

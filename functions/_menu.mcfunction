@@ -266,6 +266,13 @@ execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1},tag=menuclan
 
 
 
+execute as @s[scores={menubackground=0..,menuscroll=0..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players remove @s clanrolls 1
+execute as @s[scores={menubackground=0..,menuscroll=0..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run tag @s add rollingclan
+
+
+
 scoreboard players add @s[tag=rollingclan] menutimer 1
 execute as @s[scores={menutimer=1..80},tag=menuclans,tag=rollingclan] at @s run scoreboard players random @s chance 1 100
 execute as @s[scores={menutimer=1..80},tag=menuclans,tag=rollingclan] at @s run playsound note.bd @s ~~~ 0.5 1.5 9999999

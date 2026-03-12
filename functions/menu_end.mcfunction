@@ -1,4 +1,5 @@
 tag @s remove menu
+tag @s remove menuautoroll
 tag @s remove rolledtechnique
 tag @s remove menufinal
 tag @s remove menucredits

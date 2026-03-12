@@ -111,6 +111,7 @@ title @a[scores={start=0},tag=!impactframesoff] title 
 
 give @a[scores={start=0}] ds:basic_combat 1 0 {"minecraft:keep_on_death":{}}
 tag @a[scores={start=0}] add menu
+tag @a[scores={start=0}] add menuautoroll
 effect @a[scores={start=0}] regeneration 10 10 true
 tag @e remove BasicM1s 
 give @a[scores={start=0},m=c] ds:settings

@@ -46,9 +46,9 @@ scoreboard players set @s[tag=menuautoroll] menuselect 1
 
 titleraw @s[tag=startscreen,tag=!menuautoroll,scores={menutimer=0}] title {"rawtext":[{"text":"§l§oJump Sneak or Punch to Start"}]}
 
-tag @s[tag=startscreen,scores={menutimer=0,punch=1},tag=!menuintro] add menuintro
-tag @s[tag=startscreen,scores={menutimer=0,Sneaking=1},tag=!menuintro] add menuintro
-tag @s[tag=startscreen,scores={menutimer=0,menuselect=1},tag=!menuintro] add menuintro
+tag @s[tag=startscreen,scores={menutimer=0,punch=1},tag=!menuintro,tag=!menuautoroll] add menuintro
+tag @s[tag=startscreen,scores={menutimer=0,Sneaking=1},tag=!menuintro,tag=!menuautoroll] add menuintro
+tag @s[tag=startscreen,scores={menutimer=0,menuselect=1},tag=!menuintro,tag=!menuautoroll] add menuintro
 tag @s[tag=menuintro,tag=startscreen] remove startscreen
 tag @s[tag=startscreen,tag=menuautoroll,tag=!menurace] add menurace
 tag @s[tag=startscreen,tag=menuautoroll] remove startscreen

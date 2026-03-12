@@ -111,6 +111,7 @@ title @a[scores={start=0},tag=!impactframesoff] title 
 
 give @a[scores={start=0}] ds:basic_combat 1 0 {"minecraft:keep_on_death":{}}
 tag @a[scores={start=0}] add menu
+tag @a[scores={start=0}] add menuautoroll
 effect @a[scores={start=0}] regeneration 10 10 true
 tag @e remove BasicM1s 
 give @a[scores={start=0},m=c] ds:settings
@@ -451,6 +452,6 @@ scoreboard players add @a blackflashcount 0
 
 
 
-execute as @a[scores={start=0}] run tellraw @a {"rawtext":[{"text":"§b§lJujutsu Awakening \n§r§eA Heroic Productions...\n§fCheck out my Youtube: §4https://www.youtube.com/@heroicmaps1138\n§f§fAnd Join the Discord! §9https://discord.gg/sNKJqFp8BS\n\n§cIf your addon is delayed/laggy it might be because of your Device or Realms, ect\n\nALSO Make sure BETA APis are enabled and you are using the CORRECT minecraft version!!!"}]}
+execute as @a[scores={start=0}] run tellraw @a {"rawtext":[{"text":"§b§lJujutsu Awakening \n§r§eA Heroic Productions...\n§fCheck out my Youtube: §4https://www.youtube.com/@GhostyPowa\n§fJoin the Discord (guides + donation): §9https://discord.gg/QqxAGfFrFQ\n\nALSO Make sure BETA APis are enabled and you are using the CORRECT minecraft version!!!"}]}
 execute as @a[scores={start=0}] run playsound random.toast @a
 scoreboard players set @a[scores={start=0}] start 1

@@ -43,6 +43,11 @@ execute as @s at @s run hud @s hide crosshair
 
 
 scoreboard players set @s[tag=menuautoroll] menuselect 1
+tag @s[tag=menuautoroll,tag=menuintro] remove menuintro
+tag @s[tag=menuautoroll,tag=!menurace] add menurace
+tag @s[tag=menuautoroll,tag=menuhome] remove menuhome
+tag @s[tag=menuautoroll,tag=menuhelp] remove menuhelp
+tag @s[tag=menuautoroll,tag=menucredits] remove menucredits
 
 titleraw @s[tag=startscreen,tag=!menuautoroll,scores={menutimer=0}] title {"rawtext":[{"text":"§l§oJump Sneak or Punch to Start"}]}
 
@@ -53,7 +58,7 @@ tag @s[tag=menuintro,tag=startscreen] remove startscreen
 tag @s[tag=startscreen,tag=menuautoroll,tag=!menurace] add menurace
 tag @s[tag=startscreen,tag=menuautoroll] remove startscreen
 scoreboard players set @s[tag=menuautoroll,tag=menurace,scores={menuscroll=!2}] menuscroll 2
-scoreboard players set @s[tag=menuautoroll,tag=menurace,scores={menubackground=!1}] menubackground 1
+scoreboard players set @s[tag=menuautoroll,tag=menurace,scores={menubackground=!0}] menubackground 0
 
 
 scoreboard players set @s[tag=!menuintro,tag=!rollingclan,tag=!rollingtrait,tag=!rollingtechnique,tag=!rolledclan,tag=!rolledtrait,tag=!rolledtechnique,tag=!menufinal,scores={menutimer=!0}] menutimer 0

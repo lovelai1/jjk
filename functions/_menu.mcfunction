@@ -42,12 +42,24 @@ execute as @s at @s run hud @s hide crosshair
 
 
 
-titleraw @s[tag=startscreen,scores={menutimer=0}] title {"rawtext":[{"text":"§l§oJump Sneak or Punch to Start"}]}
+scoreboard players set @s[tag=menuautoroll] menuselect 1
+tag @s[tag=menuautoroll,tag=menuintro] remove menuintro
+tag @s[tag=menuautoroll,tag=!menurace] add menurace
+tag @s[tag=menuautoroll,tag=menuhome] remove menuhome
+tag @s[tag=menuautoroll,tag=menuhelp] remove menuhelp
+tag @s[tag=menuautoroll,tag=menucredits] remove menucredits
 
-tag @s[tag=startscreen,scores={menutimer=0,punch=1},tag=!menuintro] add menuintro
-tag @s[tag=startscreen,scores={menutimer=0,Sneaking=1},tag=!menuintro] add menuintro
-tag @s[tag=startscreen,scores={menutimer=0,menuselect=1},tag=!menuintro] add menuintro
+titleraw @s[tag=startscreen,tag=!menuautoroll,scores={menutimer=0}] title {"rawtext":[{"text":"§l§oJump Sneak or Punch to Start"}]}
+
+tag @s[tag=startscreen,scores={menutimer=0,punch=1},tag=!menuintro,tag=!menuautoroll] add menuintro
+tag @s[tag=startscreen,scores={menutimer=0,Sneaking=1},tag=!menuintro,tag=!menuautoroll] add menuintro
+tag @s[tag=startscreen,scores={menutimer=0,menuselect=1},tag=!menuintro,tag=!menuautoroll] add menuintro
 tag @s[tag=menuintro,tag=startscreen] remove startscreen
+tag @s[tag=startscreen,tag=menuautoroll,tag=!menurace] add menurace
+tag @s[tag=startscreen,tag=menuautoroll] remove startscreen
+scoreboard players set @s[tag=menuautoroll,tag=menurace,scores={menuscroll=!2}] menuscroll 2
+scoreboard players set @s[tag=menuautoroll,tag=menurace,scores={menubackground=!0}] menubackground 0
+
 
 scoreboard players set @s[tag=!menuintro,tag=!rollingclan,tag=!rollingtrait,tag=!rollingtechnique,tag=!rolledclan,tag=!rolledtrait,tag=!rolledtechnique,tag=!menufinal,scores={menutimer=!0}] menutimer 0
 scoreboard players add @s[tag=menuintro] menutimer 1
@@ -229,6 +241,15 @@ execute as @s[scores={menubackground=0..,menuscroll=2,menuselect=1},tag=menurace
 execute as @s[scores={menubackground=0..,menuscroll=2,menuselect=1},tag=menurace] at @s if block ~~-0.3~ air run tp @s ~~-0.3~
 execute as @s[scores={menubackground=0..,menuscroll=2,menuselect=1},tag=menurace] at @s run function menu_clanscreen
 
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run playsound mob.wither.hurt @s ~~~ 999999 1.5 999999
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run tag @s add menuclans
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run tellraw @s {"rawtext":[{"text":"§l§fYou have Selected: §bHuman§f."}]}
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run scoreboard players set @s human 1
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run scoreboard players set @s clanrolls 5
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s if block ~~-0.3~ air run tp @s ~~-0.3~
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menurace,tag=!menuclans] at @s run function menu_clanscreen
+
 execute as @s[scores={menubackground=0..,menuscroll=3,menuselect=1},tag=menurace] at @s run playsound mob.button @s ~~~ 999999 1 999999
 execute as @s[scores={menubackground=0..,menuscroll=3,menuselect=1},tag=menurace] at @s run playsound mob.wither.ambient @s ~~~ 999999 0.65 999999
 execute as @s[scores={menubackground=0..,menuscroll=3,menuselect=1},tag=menurace,tag=!menutechnique] at @s run tag @s add menutechnique
@@ -242,11 +263,14 @@ execute as @s[scores={menubackground=0..,menuscroll=3,menuselect=1},tag=menurace
 
 
 execute as @s[scores={menubackground=0..},tag=menuclans,tag=!impactframesoff] at @s run titleraw @s title {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n"}]}
-execute as @s[scores={menubackground=0..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"§l§fPress [Sneak] to Roll your Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menubackground=0..},tag=menuclans,tag=!rollingclan,tag=!rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"§l§fPress [Sneak] to Roll your Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n\n\n\n\n\n\n   "}]}
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run playsound mob.button @s ~~~ 999999 1 999999
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players add @s menutimer 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players remove @s clanrolls 1
-execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run tag @s add rollingclan
+execute as @s[scores={menubackground=0..,menuscroll=0..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players remove @s clanrolls 1
+execute as @s[scores={menubackground=0..,menuscroll=0..},tag=menuautoroll,tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run tag @s add rollingclan
 
 
 
@@ -286,13 +310,13 @@ tag @s[scores={menutimer=100,chance=84..90},tag=rollingclan,tag=menuclans,tag=!k
 tag @s[scores={menutimer=100,chance=91..96},tag=rollingclan,tag=menuclans,tag=!zenin] add zenin
 tag @s[scores={menutimer=100,chance=97..},tag=rollingclan,tag=menuclans,tag=!gojo] add gojo
 
-execute as @s[scores={menutimer=100,chance=1..40},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ No Clan  ]-\n\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
-execute as @s[scores={menutimer=100,chance=41..56},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ No Clan  ]-\n\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
-execute as @s[scores={menutimer=100,chance=57..72},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ No Clan  ]-\n\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
-execute as @s[scores={menutimer=100,chance=73..83},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ Inumaki  ]-\n                           §r§3+5 Agility\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
-execute as @s[scores={menutimer=100,chance=84..90},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ Kamo  ]-\n                        §r§c+5 Endurance\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
-execute as @s[scores={menutimer=100,chance=91..96},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                              \n\n\n\n\n\n\n                               §l§f-[ Zenin  ]-\n                         §r§4+5 Strength\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
-execute as @s[scores={menutimer=100,chance=97..},tag=menuclans,tag=rolledclan] at @s run titleraw @s actionbar  {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ Gojo  ]-\n                       §r§b+100 Cursed Energy\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=1..40},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ No Clan  ]-\n\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=41..56},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ No Clan  ]-\n\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=57..72},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ No Clan  ]-\n\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=73..83},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ Inumaki  ]-\n                           §r§3+5 Agility\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=84..90},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ Kamo  ]-\n                        §r§c+5 Endurance\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=91..96},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                              \n\n\n\n\n\n\n                               §l§f-[ Zenin  ]-\n                         §r§4+5 Strength\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menutimer=100,chance=97..},tag=menuclans,tag=rolledclan,tag=!menuautoroll] at @s run titleraw @s actionbar  {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n                               \n\n\n\n\n\n\n                               §l§f-[ Gojo  ]-\n                       §r§b+100 Cursed Energy\n\n\n    §l§fPress [Sneak] to Re-Roll Clan - You have: "},{"score":{"name": "*","objective": "clanrolls"}},{"text": " §fRolls Left\n                  Press [Jump] to Continue...\n\n\n\n\n   \n\n\n\n\n\n\n   "}]}
 
 tag @s[scores={menutimer=100,chance=1..},tag=rollingclan,tag=menuclans] remove rollingclan
 
@@ -306,6 +330,16 @@ execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,chance=1..,cl
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,chance=1..,clanrolls=1..},tag=menuclans,tag=rolledclan,tag=!rollingclan] at @s run tag @s add rollingclan
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,chance=1..,clanrolls=1..},tag=menuclans,tag=rolledclan] at @s run function menu_clanrollsremove
 
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=clan] at @s run tag @s remove clan
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=inumaki] at @s run tag @s remove inumaki
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=kamo] at @s run tag @s remove kamo
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=zenin] at @s run tag @s remove zenin
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=gojo] at @s run tag @s remove gojo
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s run scoreboard players set @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=!rollingclan] at @s run tag @s add rollingclan
+execute as @s[scores={menubackground=0..,menuscroll=0..,chance=1..,clanrolls=1..},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s run function menu_clanrollsremove
+
 execute as @s[scores={menubackground=0..,menuselect=1},tag=menuclans,tag=rolledclan] at @s run playsound mob.button @s ~~~ 999999 1 999999
 execute as @s[scores={menubackground=0..,menuselect=1},tag=menuclans,tag=rolledclan,tag=!menutraits] at @s run tag @s add menutraits
 execute as @s[scores={menubackground=0..,menuselect=1,clanrolls=!0},tag=menuclans,tag=rolledclan] at @s run scoreboard players set @s clanrolls 0
@@ -313,12 +347,36 @@ execute as @s[scores={menubackground=0..,menuselect=1},tag=menuclans,tag=rolledc
 execute as @s[scores={menubackground=0..,menuselect=1},tag=menuclans,tag=rolledclan] at @s if block ~~-0.3~ air run tp @s ~~-0.3~
 execute as @s[scores={menubackground=0..,menuselect=1},tag=menuclans,tag=rolledclan] at @s run function menu_traitscreen
 
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=!menutraits] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menuclans,tag=rolledclan,tag=!menutraits] at @s run tag @s add menutraits
+execute as @s[scores={menubackground=0..,clanrolls=!0},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s run scoreboard players set @s clanrolls 0
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s run scoreboard players add @s traitrolls 1
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s if block ~~-0.3~ air run tp @s ~~-0.3~
+execute as @s[scores={menubackground=0..},tag=menuautoroll,tag=menuclans,tag=rolledclan] at @s run function menu_traitscreen
+
 execute as @s[scores={menubackground=0..},tag=menutraits,tag=!impactframesoff] at @s run titleraw @s title {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n"}]}
-execute as @s[scores={menubackground=0..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run titleraw @s actionbar {"rawtext":[{"text":"§l§fPress [Sneak] to Roll your Traits - You have: "},{"score":{"name": "*","objective": "traitrolls"}},{"text": " §fRolls Left\n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menubackground=0..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"§l§fPress [Sneak] to Roll your Traits - You have: "},{"score":{"name": "*","objective": "traitrolls"}},{"text": " §fRolls Left\n\n\n\n\n\n\n   "}]}
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run playsound mob.button @s ~~~ 999999 1 999999
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players add @s menutimer 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players remove @s traitrolls 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,menutimer=1},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run tag @s add rollingtrait
+
+
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players remove @s traitrolls 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,menutimer=1},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run tag @s add rollingtrait
+
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s chance 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..,common=!0},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s common 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..,uncommon=!0},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s uncommon 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..,rare=!0},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s rare 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..,exotic=!0},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s exotic 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..,honored=!0},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s honored 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players set @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,traitrolls=1..},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run scoreboard players remove @s traitrolls 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,menutimer=1},tag=menuautoroll,tag=menutraits,tag=!rollingtrait,tag=rolledtrait,tag=!selectedtrait2] at @s run tag @s add rollingtrait
 
 
 tellraw @s[scores={traitrolls=0,Sneaking=1},tag=menutraits] {"rawtext":[{"text":"§r§o§4You have no more Trait Rolls!"}]}
@@ -377,11 +435,16 @@ scoreboard players set @s[scores={timertick2=3..},tag=menutraits,tag=rollingtrai
 
 
 execute as @s[scores={menubackground=0..},tag=menutechnique,tag=!impactframesoff] at @s run titleraw @s title {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n\n"}]}
-execute as @s[scores={menubackground=0..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run titleraw @s actionbar {"rawtext":[{"text":"§l§fPress [Sneak] to Roll your Technique - You have: "},{"score":{"name": "*","objective": "techniquerolls"}},{"text": " §fRolls Left\n\n\n\n\n\n\n   "}]}
+execute as @s[scores={menubackground=0..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique,tag=!menuautoroll] at @s run titleraw @s actionbar {"rawtext":[{"text":"§l§fPress [Sneak] to Roll your Technique - You have: "},{"score":{"name": "*","objective": "techniquerolls"}},{"text": " §fRolls Left\n\n\n\n\n\n\n   "}]}
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run playsound mob.button @s ~~~ 999999 1 999999
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players add @s menutimer 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players remove @s techniquerolls 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,menutimer=1},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run tag @s add rollingtechnique
+
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players remove @s techniquerolls 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,menutimer=1},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run tag @s add rollingtechnique
 
 
 tellraw @s[scores={techniquerolls=0,Sneaking=1},tag=menutechnique] {"rawtext":[{"text":"§r§o§4You have no more Technique Rolls!"}]}
@@ -440,6 +503,17 @@ execute as @s[scores={menutimer=1..99,chance=1..,timertick2=3..},tag=menutechniq
 execute as @s[scores={menutimer=100,chance=0..},tag=menutechnique,tag=rolledtechnique] at @s run function menu_techniqueshow
 tag @s[scores={menutimer=100,chance=1..},tag=rollingtechnique,tag=menutechnique,tag=!rolledtechnique] add rolledtechnique
 tag @s[scores={menutimer=100,chance=1..},tag=rolledtechnique,tag=menutechnique,tag=rollingtechnique] remove rollingtechnique
+
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run playsound mob.button @s ~~~ 999999 1 999999
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s chance 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..,common=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s common 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..,uncommon=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s uncommon 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..,rare=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s rare 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..,exotic=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s exotic 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..,honored=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s honored 0
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players set @s menutimer 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,techniquerolls=1..},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run scoreboard players remove @s techniquerolls 1
+execute as @s[scores={menubackground=0..,menuscroll=0..,menutimer=1},tag=menuautoroll,tag=menutechnique,tag=!rollingtechnique,tag=rolledtechnique,tag=!selectedtechnique2] at @s run tag @s add rollingtechnique
 
 scoreboard players set @s[scores={timertick2=3..},tag=menutechnique,tag=rollingtechnique] timertick2 0
 

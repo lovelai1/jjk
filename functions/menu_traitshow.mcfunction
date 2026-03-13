@@ -140,6 +140,7 @@ titleraw @s[scores={honored=1,menutimer=100},tag=menutraits,tag=rolledtrait] act
  titleraw @s[scores={honored=10,menutimer=100},tag=menutraits,tag=rolledtrait] actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n     \n\n\n\n\n\n§l§b§o-Honored-\n§f-[ ]-\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"}]}
 
 tag @s[scores={Sneaking=1},tag=cantselect] remove cantselect
+tag @s[scores={menuselect=1,menutimer=100},tag=cantselect] remove cantselect
 tag @s[scores={menuselect=1,menutimer=100},tag=rolledtrait,tag=menutraits,tag=!selectedtrait] add selectedtrait
 tag @s[scores={menuselect=1,menutimer=100},tag=rolledtrait,tag=menutraits,tag=!selectedtrait1,tag=!cantselect] add cantselect
 tag @s[scores={menuselect=1,menutimer=100},tag=rolledtrait,tag=menutraits,tag=selectedtrait1,tag=!cantselect,tag=!selectedtrait2] add selectedtrait2

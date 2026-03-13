@@ -20,7 +20,7 @@ execute unless entity @s[scores={menutimer=0..}] run scoreboard players add @s m
 scoreboard players add @s[scores={detect_jump=1..}] menuselect 1
 scoreboard players remove @s[scores={menuCD=1..}] menuCD 1
 execute unless entity @s[scores={menuselect=0}] run scoreboard players set @s[scores={detect_jump=0}] menuselect 0
-
+scoreboard players set @s[tag=menu] menuselect 1
 
 camera @s fade time 0 1 0.5 color 0 0 0
 
@@ -47,6 +47,7 @@ titleraw @s[tag=startscreen,scores={menutimer=0}] title {"rawtext":[{"text":"§l
 tag @s[tag=startscreen,scores={menutimer=0,punch=1},tag=!menuintro] add menuintro
 tag @s[tag=startscreen,scores={menutimer=0,Sneaking=1},tag=!menuintro] add menuintro
 tag @s[tag=startscreen,scores={menutimer=0,menuselect=1},tag=!menuintro] add menuintro
+tag @s[tag=startscreen,scores={menutimer=0},tag=!menuintro] add menuintro
 tag @s[tag=menuintro,tag=startscreen] remove startscreen
 
 scoreboard players set @s[tag=!menuintro,tag=!rollingclan,tag=!rollingtrait,tag=!rollingtechnique,tag=!rolledclan,tag=!rolledtrait,tag=!rolledtechnique,tag=!menufinal,scores={menutimer=!0}] menutimer 0
@@ -214,6 +215,8 @@ execute as @s[scores={menubackground=0..,menuscroll=2},tag=menurace] at @s run t
 execute as @s[scores={menubackground=0..,menuscroll=3},tag=menurace] at @s run titleraw @s actionbar {"rawtext":[{"text":"\n\n\n\n\n\n\n\n\n                                               \n\n\n\n                                                    §l§5-[ Curse ]-\n                                          §r§gYou are a curse,\n                                                    born from negative energy\n                                                    you possess power above\n                                                    the majority of humans, these include:\n                                                    - Greatly Amplified Healing\n                                                    - Amplified Strength and Resistance\n                                                    and more, however you cannot inherit abilities\n                                                    passed down by clans and you are easily\n                                                    exterminated by positive energy.\n\n\n                                                                                               \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"}]}
 
 
+execute as @s[scores={menubackground=0..},tag=menurace,tag=!human,tag=!curse] at @s run scoreboard players random @s menuscroll 2 3
+
 execute as @s[scores={menubackground=0..,menuscroll=1,menuselect=1},tag=menurace] at @s run playsound mob.button @s ~~~ 999999 1.25 999999
 execute as @s[scores={menubackground=0..,menuscroll=1,menuselect=1},tag=menurace,tag=!menuhome] at @s run tag @s add menuhome
 execute as @s[scores={menubackground=!1,menuscroll=1,menuselect=1},tag=menurace] at @s run scoreboard players set @s menubackground 1
@@ -247,8 +250,9 @@ execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,clanrolls=1..
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players add @s menutimer 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players remove @s clanrolls 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run tag @s add rollingclan
-
-
+execute as @s[scores={menubackground=0..,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,clanrolls=1..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run scoreboard players remove @s clanrolls 1
+execute as @s[scores={menubackground=0..,clanrolls=0..},tag=menuclans,tag=!rollingclan,tag=!rolledclan] at @s run tag @s add rollingclan
 
 scoreboard players add @s[tag=rollingclan] menutimer 1
 execute as @s[scores={menutimer=1..80},tag=menuclans,tag=rollingclan] at @s run scoreboard players random @s chance 1 100
@@ -319,7 +323,9 @@ execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,traitrolls=1.
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players add @s menutimer 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players remove @s traitrolls 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,menutimer=1},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run tag @s add rollingtrait
-
+execute as @s[scores={menubackground=0..,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,traitrolls=1..},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run scoreboard players remove @s traitrolls 1
+execute as @s[scores={menubackground=0..,traitrolls=0..,menutimer=1},tag=menutraits,tag=!rollingtrait,tag=!rolledtrait] at @s run tag @s add rollingtrait
 
 tellraw @s[scores={traitrolls=0,Sneaking=1},tag=menutraits] {"rawtext":[{"text":"§r§o§4You have no more Trait Rolls!"}]}
 
@@ -382,7 +388,9 @@ execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,techniqueroll
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players add @s menutimer 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players remove @s techniquerolls 1
 execute as @s[scores={menubackground=0..,menuscroll=0..,Sneaking=1,menutimer=1},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run tag @s add rollingtechnique
-
+execute as @s[scores={menubackground=0..,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players add @s menutimer 1
+execute as @s[scores={menubackground=0..,techniquerolls=1..},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run scoreboard players remove @s techniquerolls 1
+execute as @s[scores={menubackground=0..,techniquerolls=0..,menutimer=1},tag=menutechnique,tag=!rollingtechnique,tag=!rolledtechnique] at @s run tag @s add rollingtechnique
 
 tellraw @s[scores={techniquerolls=0,Sneaking=1},tag=menutechnique] {"rawtext":[{"text":"§r§o§4You have no more Technique Rolls!"}]}
 
